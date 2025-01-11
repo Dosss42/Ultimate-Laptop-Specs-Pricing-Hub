@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+
+    <link rel="icon" type="image/x-icon" href="image/logo1.png">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            background: white;
+            text-align: center;
+           
+        }
+        .logo i{
+            font-size: 50px;
+            color: #007bff;
+            transition: 0.4s ease-in-out;
+        }
+        .logo i:hover{
+            transform: scale(1.1);
+        }
+        .form-group {
+            margin: 20px 0;
+            display: block;
+        }
+        input {
+            width: 80%;
+            padding: 12px;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 80%;
+            padding: 12px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px auto;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <i class="fa-solid fa-laptop" onclick="goToHome()"></i>
+        </div>
+        <div id="loginForm">
+            <h2>Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="form-group">
+                    <input type="password" id="adminPassword" placeholder="Enter Password" required>
+                </div>                
+                <button type="submit">Login</button>
+            </form>
+            <p id="errorMessage" style="color: red;"></p>
+        </div> 
+    </div>
+    
+
+    <script>
+      const adminForm = document.getElementById('adminLoginForm');
+      const passwordInput = document.getElementById('adminPassword');
+      const ADMIN_PASSWORD = 'admin123';
+
+        passwordInput.addEventListener('input', function() {
+            console.log('Current password:', this.value);
+        });
+
+        adminForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = passwordInput.value;
+            console.log('Submitted password:', password);
+            
+            if (password === ADMIN_PASSWORD) {
+                localStorage.setItem('isAdminAuthenticated', 'true');
+                window.location.href = 'addlaptop.html';
+            } else {
+                document.getElementById('errorMessage').textContent = 'Invalid password';
+            }
+        });
+
+
+
+        function logout() {
+            sessionStorage.removeItem('adminAuthenticated');
+            window.location.href = 'index.html';
+        }
+
+        function addLaptop() {
+            window.location.href = 'addlaptop.html';
+        }
+
+        function editLaptop() {
+            window.location.href = 'editlaptop.html';
+        }
+
+        function deleteLaptop() {
+            window.location.href = 'deletelaptop.html';
+        }
+
+    </script>
+</body>
+</html>

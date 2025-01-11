@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Laptop</title>
+
+    <link rel="icon" type="image/x-icon" href="image/logo1.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 80px;
+            z-index: 1000;
+        }
+
+        .logo i{
+            font-size: 50px;
+            color: #007bff;
+            transition: 0.4s ease-in-out;
+        }
+        .logo i:hover{
+            transform: scale(1.1);
+        }
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.nav-btn.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.nav-buttons i{
+    font-size: 1.3rem;
+    color: black;
+}
+
+
+
+.form-container {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+select.form-input {
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+input[type="file"].form-input {
+    padding: 8px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+
+
+    </style>
+       
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-laptop" onclick="goToHome()"></i>
+        </div>
+        <div class="nav-buttons">
+            <i class="nav-btn fa-solid fa-house" onclick="goToHome()"></i>
+            <i class="nav-btn fa-solid fa-plus" onclick="addLaptop()"></i>
+            <i class="nav-btn fa-solid fa-pen-to-square" onclick="editLaptop()"></i>
+            <i class="nav-btn fa-solid fa-trash" onclick="deleteLaptop()"></i>
+
+
+            <!--<button class="nav-btn" onclick="goToHome()">Home</button>
+            <button class="nav-btn active" onclick="addLaptop()">Add</button>
+            <button class="nav-btn" onclick="editLaptop()">Edit</button>
+            <button class="nav-btn" onclick="deleteLaptop()">Delete</button>-->
+        </div>
+    </nav>
+    
+
+    <div class="form-container">
+        <h2>Add New Laptop</h2>
+        <form id="laptopForm">
+            <div class="form-group">
+                <label for="laptopName">Laptop Name</label>
+                <input type="text" id="laptopName" name="laptopName" class="form-input" required>
+            </div>
+
+            
+
+            <div class="form-group">
+                <label for="processor">Processor</label>
+                <select id="processor" name="processor" class="form-input" required>
+                    <option value="">Select Processor</option>
+                    <option value="Intel Celeron N4020">Intel Celeron N4020</option>
+                    <option value="Intel Core i5">Intel Core i5</option>
+                    <option value="Intel i3-1005G1">Intel i3-1005G1</option>
+                    <option value="Intel i3-1115G4">Intel i3-1115G4</option>
+                    <option value="Intel Core i3-1115G4">Intel Core i3-1115G4</option>
+                    <option value="Intel i5-1135G7">Intel i5-1135G7</option>
+                    <option value="Intel i5-11400H">Intel i5-11400H</option>
+                    <option value="Intel Core i5-1135G7">Intel Core i5-1135G7</option>
+                    <option value="Intel Core i5-10300H">Intel Core i5-10300H</option>
+                    <option value="Intel i7-1165G7">Intel i7-1165G7</option>
+                    <option value="Intel i7-12700H">Intel i7-12700H</option>
+                    <option value="Intel i7-11800H">Intel i7-11800H</option>
+                    <option value="Intel Core i7-10870H">Intel Core i7-10870H</option>
+                    <option value="Intel i9-12900H">Intel i9-12900H</option>
+                    <option value="Intel Core i9-11900H">Intel Core i9-11900H</option>
+                    <option value="Intel Core i9">Intel Core i9</option>
+                    <option value="AMD Ryzen 3 3200U">AMD Ryzen 3 3200U</option>
+                    <option value="AMD Ryzen 3 3250U">AMD Ryzen 3 3250U</option>
+                    <option value="AMD Ryzen 5 3500U">AMD Ryzen 5 3500U</option>
+                    <option value="AMD Ryzen 5 4600U">AMD Ryzen 5 4600U</option>
+                    <option value="AMD Ryzen 5 4500U">AMD Ryzen 5 4500U</option>
+                    <option value="AMD Ryzen 7 4700U">AMD Ryzen 7 4700U</option>
+                    <option value="AMD Ryzen 7 3700U">AMD Ryzen 7 3700U</option>
+                    <option value="AMD Ryzen 7 5800H">AMD Ryzen 7 5800H</option>
+                    <option value="AMD Ryzen 7 4800H">AMD Ryzen 7 4800H</option>
+                    <option value="AMD Ryzen 7 5800HS">AMD Ryzen 7 5800HS</option>
+                    <option value="Apple M1 Pro">Apple M1 Pro</option>
+                    <option value="Apple M1">Apple M1</option>
+                    <option value="Apple M2">Apple M2</option>
+                    <option value="Apple M1 Max">Apple M1 Max</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ram">RAM (GB)</label>
+                <select id="ram" name="ram" class="form-input" required>
+                    <option value="">Select RAM Size</option>
+                    <option value="4">4 GB</option>
+                    <option value="8">8 GB</option>
+                    <option value="16">16 GB</option>
+                    <option value="32">32 GB</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="storageUnit">Storage Unit</label>
+                <select id="storageUnit" name="storageUnit" class="form-input" required>
+                    <option value="GB">GB</option>
+                    <option value="TB">TB</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="storageSize">Storage Size </label>
+                <input type="number" id="storageSize" name="storageSize" class="form-input" required>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="storageType">Storage Type</label>
+                <select id="storageType" name="storageType" class="form-input" required>
+                    <option value="">Select Type</option>
+                    <option value="SSD">SSD</option>
+                    <option value="HDD">HDD</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="screenSize">Screen Size (inches)</label>
+                <input type="number" step="0.1" id="screenSize" name="screenSize" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gpu">GPU</label>
+                <select id="gpu" name="gpu" class="form-input" required>
+                    <option value="">Select GPU</option>
+                    <option value="Apple M1">Apple M1</option>
+                    <option value="Apple M1">Apple M2</option>
+                    <option value="Intel UHD Graphics">Intel UHD Graphics</option>
+                    <option value="Intel Iris Xe">Intel Iris Xe</option>
+                    <option value="Intel Iris Xe Graphics">Intel Iris Xe Graphics</option>
+                    <option value="Intel Iris Plus Graphics">Intel Iris Plus Graphics</option>
+                    <option value="Intel Iris Graphics 550">Intel Iris Graphics 550</option>
+                    <option value="Intel UHD Graphics 617">Intel UHD Graphics 617</option>
+                    <option value="Intel HD Graphics 4000">Intel HD Graphics 4000</option>
+                    <option value="NVIDIA Quadro T1000">NVIDIA Quadro T1000</option>
+                    <option value="NVIDIA Quadro1660 Ti">NVIDIA Quadro1660 Ti</option>
+                    <option value="NVIDIA GeForce GTX 1650">NVIDIA GeForce GTX 1650</option>
+                    <option value="NVIDIA GeForce GTX 1660 Ti">NVIDIA GeForce GTX 1660 Ti</option>
+                    <option value="NVIDIA GeForce GTX 1050">NVIDIA GeForce GTX 1050</option>
+                    <option value="NVIDIA GeForce GTX 1070">NVIDIA GeForce GTX 1070</option>
+                    <option value="NVIDIA GeForce RTX 2060">NVIDIA GeForce RTX 2060</option>
+                    <option value="NVIDIA GeForce RTX 2070">NVIDIA GeForce RTX 2070</option>
+                    <option value="NVIDIA GeForce RTX 2080 Super">NVIDIA GeForce RTX 2080 Super</option>
+                    <option value="NVIDIA GeForce RTX 3050">NVIDIA GeForce RTX 3050</option>
+                    <option value="NVIDIA GeForce RTX 3060">NVIDIA GeForce RTX 3060</option>
+                    <option value="NVIDIA GeForce RTX 3070">NVIDIA GeForce RTX 3070</option>
+                    <option value="NVIDIA GeForce RTX 3080">NVIDIA GeForce RTX 3080</option>
+                    <option value="NVIDIA GeForce RTX 3060ti">NVIDIA GeForce RTX 3060ti</option>
+                    <option value="NVIDIA GeForce RTX 4050">NVIDIA GeForce RTX 4050</option>
+                    <option value="NVIDIA GeForce RTX 4060">NVIDIA GeForce RTX 4060</option>
+                    <option value="NVIDIA GeForce RTX 4060ti">NVIDIA GeForce RTX 4060ti</option>
+                    <option value="NVIDIA GeForce RTX 4070">NVIDIA GeForce RTX 4070</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="os">Operating System</label>
+                <select id="os" name="os" class="form-input" required>
+                    <option value="">Select Operating System</option>
+                    <!-- Windows 11 -->
+                    <option value="Windows 11 Home">Windows 11 Home</option>
+                    <option value="Windows 11 Pro">Windows 11 Pro</option>
+                    <option value="Windows 11 Enterprise">Windows 11 Enterprise</option>
+                    <option value="Windows 11 Education">Windows 11 Education</option>
+                    
+                    <!-- Windows 10 -->
+                    <option value="Windows 10 Home">Windows 10 Home</option>
+                    <option value="Windows 10 Pro">Windows 10 Pro</option>
+                    <option value="Windows 10 Enterprise">Windows 10 Enterprise</option>
+                    <option value="Windows 10 Education">Windows 10 Education</option>
+                    <option value="Windows 10 S">Windows 10 S</option>
+                    
+                    <!-- Windows 8.1 -->
+                    <option value="Windows 8.1">Windows 8.1</option>
+                    <option value="Windows 8.1 Pro">Windows 8.1 Pro</option>
+                    <option value="Windows 8.1 Enterprise">Windows 8.1 Enterprise</option>
+                    
+                    <!-- Windows 8 -->
+                    <option value="Windows 8">Windows 8</option>
+                    <option value="Windows 8 Pro">Windows 8 Pro</option>
+                    <option value="Windows 8 Enterprise">Windows 8 Enterprise</option>
+                    
+                    <!-- Windows 7 -->
+                    <option value="Windows 7 Starter">Windows 7 Starter</option>
+                    <option value="Windows 7 Home Basic">Windows 7 Home Basic</option>
+                    <option value="Windows 7 Home Premium">Windows 7 Home Premium</option>
+                    <option value="Windows 7 Professional">Windows 7 Professional</option>
+                    <option value="Windows 7 Enterprise">Windows 7 Enterprise</option>
+                    <option value="Windows 7 Ultimate">Windows 7 Ultimate</option>
+                    
+                  <!-- macOS/OS X Options -->
+                    <option value="macOS Sequoia">macOS Sequoia</option>
+                    <option value="macOS Sonoma">macOS Sonoma</option>
+                    <option value="macOS Ventura">macOS Ventura</option>
+                    <option value="macOS Monterey">macOS Monterey</option>
+                    <option value="macOS Big Sur">macOS Big Sur</option>
+                    <option value="macOS Catalina">macOS Catalina</option>
+                    <option value="macOS Mojave">macOS Mojave</option>
+                    <option value="macOS High Sierra">macOS High Sierra</option>
+                    <option value="macOS Sierra">macOS Sierra</option>
+                    <option value="OS X El Capitan">OS X El Capitan</option>
+                    <option value="OS X Yosemite">OS X Yosemite</option>
+                    <option value="OS X Mavericks">OS X Mavericks</option>
+                    <option value="OS X Mountain Lion">OS X Mountain Lion</option>
+                    <option value="OS X Lion">OS X Lion</option>
+                    <option value="Mac OS X Snow Leopard">Mac OS X Snow Leopard</option>
+                    <option value="Mac OS X Leopard">Mac OS X Leopard</option>
+                    <option value="Mac OS X Tiger">Mac OS X Tiger</option>
+                    <option value="Mac OS X Panther">Mac OS X Panther</option>
+                    <option value="Mac OS X Jaguar">Mac OS X Jaguar</option>
+                    <option value="Mac OS X Puma">Mac OS X Puma</option>
+                    <option value="Mac OS X Cheetah">Mac OS X Cheetah</option>
+
+                    <!-- linux Options -->
+                    <option value="Linux Mint">Linux Mint</option>
+                    <option value="Ubuntu">Ubuntu</option>
+                    <option value="Fedora">Fedora</option>
+                    <option value="Debian">Debian</option>
+                    <option value="elementary OS">elementary OS</option>
+                    <option value="Manjaro">Manjaro</option>
+                    <option value="openSUSE">openSUSE</option>
+                    <option value="Arch Linux">Arch Linux</option>
+                    <option value="MX Linux">MX Linux</option>
+                    <option value="Zorin OS">Zorin OS</option>
+                    <option value="Pop!_OS">Pop!_OS</option>
+                    <option value="Gentoo">Gentoo</option>
+                    <option value="Lubuntu">Lubuntu</option>
+                    <option value="Garuda Linux">Garuda Linux</option>
+                    <option value="Red Hat Enterprise Linux">Red Hat Enterprise Linux</option>
+                    <option value="CentOS Stream">CentOS Stream</option>
+                    <option value="Solus">Solus</option>
+                </select>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="price">Price ₱</label>
+                <input type="number" id="price" name="price" class="form-input" required>
+            </div>
+
+            <div class="form-group">
+                <label for="brand">Brand</label>
+                <select id="brand" name="brand" class="form-input" required>
+                    <option value="">Select Brand</option>
+                    <option value="HP" >HP</option>
+                    <option value="Dell">Dell</option>
+                    <option value="Lenovo">Lenovo</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Mac">Mac</option>
+                    <option value="Msi">Msi</option>
+                    <option value="GigaByte">Gigabyte</option>
+                    <option value="Acer">Acer</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" class="form-input" required>
+                    <option value="">Select Category</option>
+                    <option value="Gaming Laptops">Gaming Laptops</option>
+                    <option value="Budget Laptops">Budget Laptops</option>
+                    <option value="Performance Laptops">Performance Laptops</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="laptopImage">Laptop Image</label>
+                <input type="file" id="laptopImage" name="laptopImage" class="form-input" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label for="shopLink">Shop Link</label>
+                <input type="url" id="shopLink" name="shopLink" class="form-input" placeholder="https://example.com/laptop" required>
+            </div>
+
+            <button type="submit" class="submit-btn">Add Laptop</button>
+        </form>
+    </div>
+
+    <script>
+     
+        document.addEventListener('DOMContentLoaded', function() {
+            const laptopForm = document.getElementById('laptopForm');
+            const imageInput = document.getElementById('laptopImage');
+
+        
+            function handleImageUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        localStorage.setItem('tempImage', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+           laptopForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                // Get and validate price, screen size, and storage
+                const price = parseInt(document.getElementById('price').value);
+                const screenSize = parseFloat(document.getElementById('screenSize').value);
+                const storageSize = parseInt(document.getElementById('storageSize').value);
+
+                if (storageSize <= 0) {
+                    alert('Storage size must be greater than 0');
+                    return;
+                }
+                
+                if (screenSize <= 0) {
+                    alert('Screen size must be greater than 0');
+                    return;
+                }
+
+                if (price <= 0) {
+                    alert('Price must be greater than 0');
+                    return;
+                }
+
+
+               
+
+                const storageUnit = document.getElementById('storageUnit').value;
+                const storageType = document.getElementById('storageType').value;
+                const combinedStorage = `${storageSize}${storageUnit} ${storageType}`;
+
+                const formData = {
+                    name: document.getElementById('laptopName').value,
+                    processor: document.getElementById('processor').value,
+                    ram: parseInt(document.getElementById('ram').value),
+                    storage: combinedStorage,
+                    screenSize: screenSize,
+                    gpu: document.getElementById('gpu').value,
+                    os: document.getElementById('os').value,
+                    price: price,
+                    brand: document.getElementById('brand').value,
+                    category: document.getElementById('category').value,
+                    image: localStorage.getItem('tempImage'),
+                    shopLink: document.getElementById('shopLink').value
+                };
+
+                let laptops = JSON.parse(localStorage.getItem('laptops')) || [];
+                laptops.push(formData);
+                localStorage.setItem('laptops', JSON.stringify(laptops));
+                localStorage.removeItem('tempImage');
+
+                alert('Laptop added successfully!');
+                window.location.href = 'addlaptop.html';
+            });
+
+            imageInput.addEventListener('change', handleImageUpload);
+        });
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        function addLaptop() {
+            window.location.href = 'addlaptop.html';
+        }
+
+        function editLaptop() {
+            window.location.href = 'editlaptop.html';
+        }
+
+        function deleteLaptop() {
+            window.location.href = 'deletelaptop.html';
+        }
+
+
+
+  </script>
+</body>
+</html>

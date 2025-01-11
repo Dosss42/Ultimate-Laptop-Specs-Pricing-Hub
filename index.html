@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Laptop Hub</title>
+
+    <link rel="icon" type="image/x-icon" href="image/logo1.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 80px;
+            z-index: 1000;
+        }
+
+        .logo i{
+            font-size: 50px;
+            color: #007bff;
+            transition: 0.4s ease-in-out;
+        }
+
+        .logo i:hover{
+            transform: scale(1.1);
+        }
+
+        .search-container {
+            max-width: 500px;
+            margin-right: 50px;
+            position: relative;
+            transition: 0.4s ease-in-out;
+        }
+
+        .search-input {
+        width: 350px;
+        font-size: 18px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: none;
+        transition: 0.5s ease-in-out;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        
+        .search-container input:focus{
+            width: 450px;
+        }
+
+
+        /*.search-button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 16px;
+        }*/
+
+        .search-container i{
+            position: absolute;
+            top:50%;
+            right: 20px;
+            transform: translateY(-50%);
+            cursor:pointer;
+        }
+
+        .search-box {
+    display: flex;
+    width: 100%;
+    }
+
+.search-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 2px;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.suggestion-item:hover {
+    background-color: #f0f0f0;
+}
+
+.search-suggestions.show {
+    display: block;
+}
+
+        .hamburger-menu {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .hamburger-bar {
+            width: 25px;
+            height: 3px;
+            background-color: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background-color: white;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            z-index: 1000;
+            padding: 10px;
+            
+        }
+
+        .dropdown-menu.show {
+            display: block;
+        }
+
+        .custom-select, .menu-button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fff;
+            cursor: pointer;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .menu-button {
+            background-color: #f0f0f0;
+            color: white;
+            color: #333;
+            font-size: 16px;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        .menu-button:hover{
+            background-color: #0056b3
+        }
+        .dropdown-menu i{
+            font-size: 1.5rem;
+            color: black;
+        }
+    
+
+        #selectedBrand {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .laptops-container {
+            margin-top: 80px;
+            margin-left: 280px;
+            padding: 25px;
+        }
+        .laptops-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .laptop-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .laptop-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .laptop-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .shop-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .shop-link:hover {
+            background-color: #0056b3;
+        }
+
+        .wishlist-button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .wishlist-button:hover {
+            background-color: #218838;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .wishlist-button-add {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .wishlist-button-remove {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .wishlist-button-add:hover {
+            background-color: #218838;
+        }
+
+        .wishlist-button-remove:hover {
+            background-color: #c82333;
+        }
+
+        .filter-panel {
+            position: fixed;
+            left: 0;
+            top: 80px;
+            width: 280px;
+            height: calc(100vh - 80px);
+            background: #f8f9fa;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        
+        }
+
+        .filter-section {
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .price-range {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .filter-checkbox {
+            margin-right: 10px;
+        }
+        .price-range {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .laptops-container {
+            margin-left: 280px;
+            padding: 25px;
+        }
+
+        .scrollable-options {
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            padding: 12px;
+            border-radius: 6px;
+            background: white;
+        }
+
+        /* Custom scrollbar styling */
+        .scrollable-options::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrollable-options::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .scrollable-options::-webkit-scrollbar-thumb {
+            background: #007bff;
+            border-radius: 4px;
+        }
+
+        .scrollable-options::-webkit-scrollbar-thumb:hover {
+            background: #0056b3;
+        }
+
+        #processor, #gpu ,#osFilter{
+            margin-top: 10px;
+            margin-bottom: 15px;
+         
+        }
+
+        .slide img{
+            width: 150px;
+            height: 150px;
+        }
+        
+
+        .slider{
+            margin-left: 100px;
+            overflow: hidden;
+            position: relative;
+            width: 82%;
+            height: 100px;
+            top:-700px;
+            left: 160px;
+        }
+        
+        
+        @keyframes scroll {
+            0%{
+                transform: translateX(0);
+            }
+            100%{
+                transform: translateX(calc(-250px *7));
+            }
+        }
+        
+        .slider .slider-track{
+            animation: scroll 20s infinite linear;
+            display: flex;
+            width: calc(250px * 14);
+        }
+        
+        .slider .slide{
+            height: 100px;
+            width: 250px;
+        }
+
+        .form-group label {
+            color: black;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select {
+        margin: 5px 0;
+        padding: 10px; 
+        border-radius: 5px; 
+        border: 1px solid #ccc;  
+        width: calc(100% - 22px); 
+
+        }
+        .filter-group input,
+        .filter-group select{
+            margin: 5px 0;
+            padding: 10px; 
+            border-radius: 5px; 
+            border: 1px solid #ccc;  
+            width: calc(100% - 22px);
+        }
+        .filter-group label{
+            font-weight: bold;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        
+        <div class="logo">
+            <i class="fa-solid fa-laptop" onclick="goToHome()"></i>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search laptops...">
+                <i class="search-button fa-solid fa-magnifying-glass"></i>
+                <!--<button class="search-button">Search</button>-->
+            </div>
+            <div class="search-suggestions" id="searchSuggestions"></div>
+        </div>
+        
+        <div class="hamburger-menu" onclick="toggleDropdown(event)">
+            <div class="hamburger-bar"></div>
+            <div class="hamburger-bar"></div>
+            <div class="hamburger-bar"></div>
+
+            <div class="dropdown-menu" id="dropdownMenu">
+                <h3>Select Brand</h3>
+                <select class="custom-select" id="brandSelect" onchange="filterByBrand(this)">
+                    <option value="" disabled selected>Select a brand</option>
+                    <option value="none">None</option>
+                    <option value="HP">HP</option>
+                    <option value="Dell">Dell</option>
+                    <option value="Lenovo">Lenovo</option>
+                    <option value="Asus">Asus</option>
+                    <option value="Mac">Mac</option>
+                    <option value="MSI">MSI</option>
+                    <option value="GigaByte">GigaByte</option>
+                    <option value="Acer">Acer</option>
+                </select>
+
+                <h3>Select Category</h3>
+                <select class="custom-select" id="categorySelect" onchange="selectCategory(this)">
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="none">None</option>
+                    <option value="Gaming Laptops">Gaming Laptops</option>
+                    <option value="Budget Laptops">Budget Laptops</option>
+                    <option value="Performance Laptops">Performance Laptops</option>
+                </select>
+
+                <h3>Menu</h3>
+
+                  <i class="menu-button fa-solid fa-house" onclick="goToHome()"></i>
+                  <i class="menu-button fa-solid fa-heart" onclick="goToWishlist()"></i>
+                  <i class="menu-button fa-solid fa-toolbox" onclick="goToAdmin()"></i>
+
+                 <!-- <button class="menu-button" onclick="goToHome()">Home</button>
+                  <button class="menu-button" onclick="goToWishlist()">Wishlist</button>
+                  <button class="menu-button" onclick="goToAdmin()">Admin</button>-->
+            </div>
+        </div>
+
+        
+    </nav>
+
+    <div class="filter-panel">
+        <div class="filter-section">
+            <h3>Price Range</h3>
+            <input type="number" class="price-range" id="minPrice" placeholder="Min Price">
+            <input type="number" class="price-range" id="maxPrice" placeholder="Max Price">
+        </div>
+    
+        <div class="filter-section">
+            <h3>RAM</h3>
+            <div class="filter-option">
+                <input type="checkbox" class="filter-checkbox ram-filter" value="4">
+                <label>4GB</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" class="filter-checkbox ram-filter" value="8">
+                <label>8GB</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" class="filter-checkbox ram-filter" value="16">
+                <label>16GB</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" class="filter-checkbox ram-filter" value="32">
+                <label>32GB</label>
+            </div>
+        </div>
+        
+    
+        <div class="filter-section">
+            <h3>Storage Type</h3>
+            <div class="filter-option">
+                <input type="checkbox" class="filter-checkbox" id="ssd" value="SSD">
+                <label for="ssd">SSD</label>
+            </div>
+            <div class="filter-option">
+                <input type="checkbox" class="filter-checkbox" id="hdd" value="HDD">
+                <label for="hdd">HDD</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="processor">Processor</label>
+            <select id="processor" name="processor" class="form-input" required>
+                <option value="">Select Processor</option>
+                <option value="Intel Celeron N4020">Intel Celeron N4020</option>
+                <option value="Intel Core i5">Intel Core i5</option>
+                <option value="Intel i3-1005G1">Intel i3-1005G1</option>
+                <option value="Intel i3-1115G4">Intel i3-1115G4</option>
+                <option value="Intel Core i3-1115G4">Intel Core i3-1115G4</option>
+                <option value="Intel i5-1135G7">Intel i5-1135G7</option>
+                <option value="Intel i5-11400H">Intel i5-11400H</option>
+                <option value="Intel Core i5-1135G7">Intel Core i5-1135G7</option>
+                <option value="Intel Core i5-10300H">Intel Core i5-10300H</option>
+                <option value="Intel i7-1165G7">Intel i7-1165G7</option>
+                <option value="Intel i7-12700H">Intel i7-12700H</option>
+                <option value="Intel i7-11800H">Intel i7-11800H</option>
+                <option value="Intel Core i7-10870H">Intel Core i7-10870H</option>
+                <option value="Intel i9-12900H">Intel i9-12900H</option>
+                <option value="Intel Core i9-11900H">Intel Core i9-11900H</option>
+                <option value="Intel Core i9">Intel Core i9</option>
+                <option value="AMD Ryzen 3 3200U">AMD Ryzen 3 3200U</option>
+                <option value="AMD Ryzen 3 3250U">AMD Ryzen 3 3250U</option>
+                <option value="AMD Ryzen 5 3500U">AMD Ryzen 5 3500U</option>
+                <option value="AMD Ryzen 5 4600U">AMD Ryzen 5 4600U</option>
+                <option value="AMD Ryzen 5 4500U">AMD Ryzen 5 4500U</option>
+                <option value="AMD Ryzen 7 4700U">AMD Ryzen 7 4700U</option>
+                <option value="AMD Ryzen 7 3700U">AMD Ryzen 7 3700U</option>
+                <option value="AMD Ryzen 7 5800H">AMD Ryzen 7 5800H</option>
+                <option value="AMD Ryzen 7 4800H">AMD Ryzen 7 4800H</option>
+                <option value="AMD Ryzen 7 5800HS">AMD Ryzen 7 5800HS</option>
+                <option value="Apple M1 Pro">Apple M1 Pro</option>
+                <option value="Apple M1">Apple M1</option>
+                <option value="Apple M2">Apple M2</option>
+                <option value="Apple M1 Max">Apple M1 Max</option>
+            </select>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="gpu">GPU</label>
+            <select id="gpu" name="gpu" class="form-input" required>
+                <option value="">Select GPU</option>
+                <option value="Apple M1">Apple M1</option>
+                <option value="Apple M1">Apple M2</option>
+                <option value="Intel UHD Graphics">Intel UHD Graphics</option>
+                <option value="Intel Iris Xe">Intel Iris Xe</option>
+                <option value="Intel Iris Xe Graphics">Intel Iris Xe Graphics</option>
+                <option value="Intel Iris Plus Graphics">Intel Iris Plus Graphics</option>
+                <option value="Intel Iris Graphics 550">Intel Iris Graphics 550</option>
+                <option value="Intel UHD Graphics 617">Intel UHD Graphics 617</option>
+                <option value="Intel HD Graphics 4000">Intel HD Graphics 4000</option>
+                <option value="NVIDIA Quadro T1000">NVIDIA Quadro T1000</option>
+                <option value="NVIDIA Quadro1660 Ti">NVIDIA Quadro1660 Ti</option>
+                <option value="NVIDIA GeForce GTX 1650">NVIDIA GeForce GTX 1650</option>
+                <option value="NVIDIA GeForce GTX 1660 Ti">NVIDIA GeForce GTX 1660 Ti</option>
+                <option value="NVIDIA GeForce GTX 1050">NVIDIA GeForce GTX 1050</option>
+                <option value="NVIDIA GeForce GTX 1070">NVIDIA GeForce GTX 1070</option>
+                <option value="NVIDIA GeForce RTX 2060">NVIDIA GeForce RTX 2060</option>
+                <option value="NVIDIA GeForce RTX 2070">NVIDIA GeForce RTX 2070</option>
+                <option value="NVIDIA GeForce RTX 2080 Super">NVIDIA GeForce RTX 2080 Super</option>
+                <option value="NVIDIA GeForce RTX 3050">NVIDIA GeForce RTX 3050</option>
+                <option value="NVIDIA GeForce RTX 3060">NVIDIA GeForce RTX 3060</option>
+                <option value="NVIDIA GeForce RTX 3070">NVIDIA GeForce RTX 3070</option>
+                <option value="NVIDIA GeForce RTX 3080">NVIDIA GeForce RTX 3080</option>
+                <option value="NVIDIA GeForce RTX 3060ti">NVIDIA GeForce RTX 3060ti</option>
+                <option value="NVIDIA GeForce RTX 4050">NVIDIA GeForce RTX 4050</option>
+                <option value="NVIDIA GeForce RTX 4060">NVIDIA GeForce RTX 4060</option>
+                <option value="NVIDIA GeForce RTX 4060ti">NVIDIA GeForce RTX 4060ti</option>
+                <option value="NVIDIA GeForce RTX 4070">NVIDIA GeForce RTX 4070</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="osFilter">Operating System:</label>
+            <select id="osFilter" onchange="filterLaptops()">
+                <option value="all">All Operating Systems</option>
+                <!-- Windows -->
+                <optgroup label="Windows">
+                    <option value="Windows 11 Home">Windows 11 Home</option>
+                    <option value="Windows 11 Pro">Windows 11 Pro</option>
+                    <option value="Windows 11 Enterprise">Windows 11 Enterprise</option>
+                    <option value="Windows 11 Education">Windows 11 Education</option>
+                    
+                    <!-- Windows 10 -->
+                    <option value="Windows 10 Home">Windows 10 Home</option>
+                    <option value="Windows 10 Pro">Windows 10 Pro</option>
+                    <option value="Windows 10 Enterprise">Windows 10 Enterprise</option>
+                    <option value="Windows 10 Education">Windows 10 Education</option>
+                    <option value="Windows 10 S">Windows 10 S</option>
+                    
+                    <!-- Windows 8.1 -->
+                    <option value="Windows 8.1">Windows 8.1</option>
+                    <option value="Windows 8.1 Pro">Windows 8.1 Pro</option>
+                    <option value="Windows 8.1 Enterprise">Windows 8.1 Enterprise</option>
+                    
+                    <!-- Windows 8 -->
+                    <option value="Windows 8">Windows 8</option>
+                    <option value="Windows 8 Pro">Windows 8 Pro</option>
+                    <option value="Windows 8 Enterprise">Windows 8 Enterprise</option>
+                    
+                    <!-- Windows 7 -->
+                    <option value="Windows 7 Starter">Windows 7 Starter</option>
+                    <option value="Windows 7 Home Basic">Windows 7 Home Basic</option>
+                    <option value="Windows 7 Home Premium">Windows 7 Home Premium</option>
+                    <option value="Windows 7 Professional">Windows 7 Professional</option>
+                    <option value="Windows 7 Enterprise">Windows 7 Enterprise</option>
+                    <option value="Windows 7 Ultimate">Windows 7 Ultimate</option>
+                </optgroup>
+                <!-- macOS -->
+                <optgroup label="macOS">
+                    <option value="macOS Sequoia">macOS Sequoia</option>
+                    <option value="macOS Sonoma">macOS Sonoma</option>
+                    <option value="macOS Ventura">macOS Ventura</option>
+                    <option value="macOS Monterey">macOS Monterey</option>
+                    <option value="macOS Big Sur">macOS Big Sur</option>
+                    <option value="macOS Catalina">macOS Catalina</option>
+                    <option value="macOS Mojave">macOS Mojave</option>
+                    <option value="macOS High Sierra">macOS High Sierra</option>
+                    <option value="macOS Sierra">macOS Sierra</option>
+                    <option value="OS X El Capitan">OS X El Capitan</option>
+                    <option value="OS X Yosemite">OS X Yosemite</option>
+                    <option value="OS X Mavericks">OS X Mavericks</option>
+                    <option value="OS X Mountain Lion">OS X Mountain Lion</option>
+                    <option value="OS X Lion">OS X Lion</option>
+                    <option value="Mac OS X Snow Leopard">Mac OS X Snow Leopard</option>
+                    <option value="Mac OS X Leopard">Mac OS X Leopard</option>
+                    <option value="Mac OS X Tiger">Mac OS X Tiger</option>
+                    <option value="Mac OS X Panther">Mac OS X Panther</option>
+                    <option value="Mac OS X Jaguar">Mac OS X Jaguar</option>
+                    <option value="Mac OS X Puma">Mac OS X Puma</option>
+                    <option value="Mac OS X Cheetah">Mac OS X Cheetah</option>
+                </optgroup>
+                <!-- Linux -->
+                <optgroup label="Linux">
+                    <option value="Linux Mint">Linux Mint</option>
+                    <option value="Ubuntu">Ubuntu</option>
+                    <option value="Fedora">Fedora</option>
+                    <option value="Debian">Debian</option>
+                    <option value="elementary OS">elementary OS</option>
+                    <option value="Manjaro">Manjaro</option>
+                    <option value="openSUSE">openSUSE</option>
+                    <option value="Arch Linux">Arch Linux</option>
+                    <option value="MX Linux">MX Linux</option>
+                    <option value="Zorin OS">Zorin OS</option>
+                    <option value="Pop!_OS">Pop!_OS</option>
+                    <option value="Gentoo">Gentoo</option>
+                    <option value="Lubuntu">Lubuntu</option>
+                    <option value="Garuda Linux">Garuda Linux</option>
+                    <option value="Red Hat Enterprise Linux">Red Hat Enterprise Linux</option>
+                    <option value="CentOS Stream">CentOS Stream</option>
+                    <option value="Solus">Solus</option>
+                </optgroup>
+            </select>
+        </div>
+        
+    
+        <button class="menu-button" onclick="applyFilters()">Apply Filters</button>
+        <button class="menu-button" onclick="resetFilters()">Reset Filters</button>
+    </div>
+
+
+
+    <div class="laptops-container">
+        <div id="laptopsList" class="laptops-grid">
+        </div>
+    </div>
+    
+    
+
+    <script>
+
+
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+        function goToAdmin() {
+            window.location.href = 'admin.html';
+        }
+        function goToWishlist() {
+            window.location.href = 'wishlist.html';
+        }
+
+
+        function toggleDropdown(event) {
+            const dropdown = document.getElementById('dropdownMenu');
+            dropdown.classList.toggle('show');
+            event.stopPropagation(); 
+        }
+
+        document.getElementById('dropdownMenu').addEventListener('click', function (event) {
+                event.stopPropagation();
+        });
+
+
+        function displayLaptops() {
+            const laptopsList = document.getElementById('laptopsList');
+            const laptops = JSON.parse(localStorage.getItem('laptops')) || [];
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            
+            laptopsList.innerHTML = laptops.map((laptop, index) => {
+                const isInWishlist = wishlist.some(item => item.name === laptop.name);
+                const wishlistButtonClass = isInWishlist ? 'wishlist-button-remove' : 'wishlist-button-add';
+                const wishlistButtonText = isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist';
+                
+                return `
+                    <div class="laptop-card">
+                        <img src="${laptop.image}" alt="${laptop.name}" class="laptop-image">
+                        <h3>${laptop.name}</h3>
+                        <p><strong>Brand:</strong> ${laptop.brand}</p>
+                        <p><strong>Category:</strong> ${laptop.category}</p>
+                        <p><strong>Operating System:</strong> ${laptop.os}</p>
+                        <p><strong>Processor:</strong> ${laptop.processor}</p>
+                        <p><strong>RAM:</strong> ${laptop.ram}GB</p>
+                        <p><strong>Storage:</strong> ${laptop.storage}</p>
+                        <p><strong>Screen Size:</strong> ${laptop.screenSize} inches</p>
+                        <p><strong>GPU:</strong> ${laptop.gpu}</p>
+                        <p><strong>Price:</strong> ₱${laptop.price}</p>
+                        <div class="button-group">
+                            <a href="${laptop.shopLink}" target="_blank" class="shop-link">
+                            <i class="fa-solid fa-shop"></i></a>
+                            <button class="${wishlistButtonClass}" onclick="toggleWishlist(${index})">
+                                ${wishlistButtonText}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+
+        function toggleWishlist(index) {
+            const laptops = JSON.parse(localStorage.getItem('laptops')) || [];
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const selectedLaptop = laptops[index];
+            
+            const existingIndex = wishlist.findIndex(item => item.name === selectedLaptop.name);
+            
+            if (existingIndex === -1) {
+                wishlist.push(selectedLaptop);
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            } else {
+                wishlist.splice(existingIndex, 1);
+                localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            }     
+            
+            displayLaptops();
+        }
+
+            const brandSelect = document.getElementById('brandSelect');
+            const categorySelect = document.getElementById('categorySelect');
+            
+            if (brandSelect.value || categorySelect.value) {
+                filterByBrandAndCategory();
+            } else {
+                const minPrice = document.getElementById('minPrice').value;
+                const maxPrice = document.getElementById('maxPrice').value;
+                const selectedProcessor = document.getElementById('processor').value;
+                const selectedGPU = document.getElementById('gpu').value;
+                
+                if (minPrice || maxPrice || selectedProcessor || selectedGPU || 
+                    document.querySelectorAll('.ram-filter:checked').length > 0 ||
+                    document.querySelectorAll('#ssd:checked, #hdd:checked').length > 0) {
+                    applyFilters();
+                } else {
+                    displayLaptops();
+                }
+            }
+
+        document.addEventListener('DOMContentLoaded', displayLaptops);
+
+        function filterByBrandAndCategory() {
+            const brandSelect = document.getElementById('brandSelect');
+            const categorySelect = document.getElementById('categorySelect');
+            const selectedBrand = brandSelect.value;
+            const selectedCategory = categorySelect.value;
+            
+            const minPrice = Number(document.getElementById('minPrice').value);
+            const maxPrice = Number(document.getElementById('maxPrice').value);
+            const selectedProcessor = document.getElementById('processor').value;
+            const selectedGPU = document.getElementById('gpu').value;
+            const selectedOS = document.getElementById('osFilter').value;
+            const selectedRam = Array.from(document.querySelectorAll('.ram-filter:checked'))
+                .map(cb => Number(cb.value));
+            const selectedStorage = Array.from(document.querySelectorAll('#ssd:checked, #hdd:checked'))
+                .map(cb => cb.value);
+
+            const laptops = JSON.parse(localStorage.getItem('laptops')) || [];
+            
+            const filteredLaptops = laptops.filter(laptop => {
+                const brandMatch = selectedBrand === '' || selectedBrand === 'none' || laptop.brand === selectedBrand;
+                const categoryMatch = selectedCategory === '' || selectedCategory === 'none' || laptop.category === selectedCategory;
+                
+                const priceMatch = (!minPrice || laptop.price >= minPrice) && 
+                                (!maxPrice || laptop.price <= maxPrice);
+                
+                const processorMatch = !selectedProcessor || laptop.processor === selectedProcessor;
+                const gpuMatch = !selectedGPU || laptop.gpu === selectedGPU;
+                const osMatch = selectedOS === 'all' || laptop.os === selectedOS; 
+                const ramMatch = selectedRam.length === 0 || selectedRam.includes(Number(laptop.ram));
+                const storageMatch = selectedStorage.length === 0 || 
+                                    selectedStorage.some(type => laptop.storage.toUpperCase().includes(type));
+
+                return brandMatch && categoryMatch && priceMatch && 
+                    processorMatch && gpuMatch && osMatch && ramMatch && storageMatch;
+            });
+
+            displayFilteredLaptops(filteredLaptops);
+        }
+
+        document.getElementById('brandSelect').addEventListener('change', filterByBrandAndCategory);
+        document.getElementById('categorySelect').addEventListener('change', filterByBrandAndCategory);
+
+  
+
+
+        document.getElementById('minPrice').addEventListener('input', function() {
+            if (this.value <= 0) {
+                this.value = '';
+            }
+        });
+
+        document.getElementById('maxPrice').addEventListener('input', function() {
+            if (this.value <= 0) {
+                this.value = '';
+            }
+        });
+
+        function filterByBrand(select) {
+            filterByBrandAndCategory();
+        }
+
+        function selectCategory(select) {
+            filterByBrandAndCategory();
+        }
+        
+        function applyFilters() {
+        filterByBrandAndCategory();
+        }
+
+
+        function displayFilteredLaptops(filteredLaptops) {
+            const laptopsList = document.getElementById('laptopsList');
+            const allLaptops = JSON.parse(localStorage.getItem('laptops')) || [];
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            
+            if (filteredLaptops.length === 0) {
+                laptopsList.innerHTML = `
+                    <div style="text-align: center; grid-column: 1/-1; padding: 50px;">
+                        <h2 style="color: #666;">No Results Found</h2>
+                    </div>
+                `;
+                return;
+            }
+
+            laptopsList.innerHTML = filteredLaptops.map((laptop) => {
+                const originalIndex = allLaptops.findIndex(l => l.name === laptop.name);
+                const isInWishlist = wishlist.some(item => item.name === laptop.name);
+                const wishlistButtonClass = isInWishlist ? 'wishlist-button-remove' : 'wishlist-button-add';
+                const wishlistButtonText = isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist';
+                
+                return `
+                    <div class="laptop-card">
+                        <img src="${laptop.image}" alt="${laptop.name}" class="laptop-image">
+                        <h3>${laptop.name}</h3>
+                        <p><strong>Brand:</strong> ${laptop.brand}</p>
+                        <p><strong>Category:</strong> ${laptop.category}</p>
+                        <p><strong>Operating System:</strong> ${laptop.os}</p>
+                        <p><strong>Processor:</strong> ${laptop.processor}</p>
+                        <p><strong>RAM:</strong> ${laptop.ram}GB</p>
+                        <p><strong>Storage:</strong> ${laptop.storage}</p>
+                        <p><strong>Screen Size:</strong> ${laptop.screenSize} inches</p>
+                        <p><strong>GPU:</strong> ${laptop.gpu}</p>
+                        <p><strong>Price:</strong> ₱${laptop.price}</p>
+                        <div class="button-group">
+                            <a href="${laptop.shopLink}" target="_blank" class="shop-link">
+                            <i class="fa-solid fa-shop"></i></a>
+                            <button class="${wishlistButtonClass}" onclick="toggleWishlist(${originalIndex})">
+                                ${wishlistButtonText}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+
+
+
+
+        function resetFilters() {
+            const currentBrand = document.getElementById('brandSelect').value;
+            const currentCategory = document.getElementById('categorySelect').value;
+
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('processor').value = '';
+            document.getElementById('gpu').value = '';
+            document.getElementById('osFilter').value = 'all';  
+            document.querySelectorAll('.ram-filter').forEach(cb => cb.checked = false);
+            document.querySelectorAll('#ssd, #hdd').forEach(cb => cb.checked = false);
+
+            if (currentBrand !== 'none' || currentCategory !== 'none') {
+                filterByBrandAndCategory();
+            } else {
+                displayLaptops();
+            }
+        }
+
+
+            
+        function resetSearch() {
+            document.querySelector('.search-input').value = '';
+            const laptops = JSON.parse(localStorage.getItem('laptops')) || [];
+            displayFilteredLaptops(laptops);
+        }
+
+
+        document.querySelector('.search-button').addEventListener('click', function() {
+            const searchInput = document.querySelector('.search-input').value.toLowerCase().trim();
+            performSearch(searchInput);
+        });
+
+        function performSearch(searchInput) {
+            const laptops = JSON.parse(localStorage.getItem('laptops')) || [];
+            
+            const filteredLaptops = laptops.filter(laptop => {
+                return (
+                    laptop.name.toLowerCase().includes(searchInput) ||
+                    laptop.brand.toLowerCase().includes(searchInput) ||
+                    laptop.processor.toLowerCase().includes(searchInput) ||
+                    laptop.gpu.toLowerCase().includes(searchInput) ||
+                    laptop.category.toLowerCase().includes(searchInput) ||
+                    laptop.storage.toLowerCase().includes(searchInput) ||
+                    laptop.os.toLowerCase().includes(searchInput) ||
+                    `${laptop.ram}gb`.includes(searchInput)
+                );
+            });
+
+            displayFilteredLaptops(filteredLaptops);
+        }
+
+
+        document.querySelector('.search-input').addEventListener('input', function(e) {
+            const searchInput = e.target.value.toLowerCase().trim();
+            showSuggestions(searchInput);
+        });  
+
+        function showSuggestions(searchInput) {
+            const suggestionsDiv = document.getElementById('searchSuggestions');
+            if (!searchInput) {
+                suggestionsDiv.classList.remove('show');
+                return;
+            }
+
+            const laptops = JSON.parse(localStorage.getItem('laptops')) || [];
+            const suggestions = new Set();
+
+            laptops.forEach(laptop => {
+                if (laptop.name.toLowerCase().includes(searchInput)) suggestions.add(laptop.name);
+                if (laptop.brand.toLowerCase().includes(searchInput)) suggestions.add(laptop.brand);
+                if (laptop.processor.toLowerCase().includes(searchInput)) suggestions.add(laptop.processor);
+                if (laptop.gpu.toLowerCase().includes(searchInput)) suggestions.add(laptop.gpu);
+                if (laptop.os.toLowerCase().includes(searchInput)) suggestions.add(laptop.os);
+                if (laptop.storage.toLowerCase().includes(searchInput)) suggestions.add(laptop.storage);
+                if (`${laptop.ram}gb`.includes(searchInput)) suggestions.add(`${laptop.ram}GB RAM`);
+            });
+
+            if (suggestions.size > 0) {
+                suggestionsDiv.innerHTML = Array.from(suggestions)
+                    .slice(0, 6)
+                    .map(text => `
+                        <div class="suggestion-item" onclick="selectSuggestion('${text.replace(/'/g, "\\'")}')">
+                            ${text}
+                        </div>
+                    `).join('');
+                suggestionsDiv.classList.add('show');
+            } else {
+                suggestionsDiv.innerHTML = `
+                    <div class="suggestion-item">No matching results</div>
+                `;
+                suggestionsDiv.classList.add('show');
+            }
+        }
+
+        function selectSuggestion(text) {
+            const searchInput = document.querySelector('.search-input');
+            searchInput.value = text;
+            document.getElementById('searchSuggestions').classList.remove('show');
+            
+            const laptops = JSON.parse(localStorage.getItem('laptops')) || [];
+            let filteredLaptops;
+
+            if (text.toLowerCase().includes('gb ram')) {
+                const ramValue = parseInt(text);
+                filteredLaptops = laptops.filter(laptop => laptop.ram === ramValue);
+            } else {
+                const searchText = text.toLowerCase();
+                filteredLaptops = laptops.filter(laptop => (
+                    laptop.name.toLowerCase().includes(searchText) ||
+                    laptop.brand.toLowerCase().includes(searchText) ||
+                    laptop.processor.toLowerCase().includes(searchText) ||
+                    laptop.gpu.toLowerCase().includes(searchText) ||
+                    laptop.category.toLowerCase().includes(searchText) ||
+                    laptop.os.toLowerCase() === searchText ||
+                    laptop.storage.toLowerCase().includes(searchText)
+                ));
+            }
+
+            displayFilteredLaptops(filteredLaptops);
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-container')) {
+                document.getElementById('searchSuggestions').classList.remove('show');
+            }
+        });
+
+    </script>
+
+</body>
+</html>
